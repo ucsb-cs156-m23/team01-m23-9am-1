@@ -16,9 +16,19 @@ public class ZipCodeQueryService {
         restTemplate = restTemplateBuilder.build();
     }
 
-    public static final String ENDPOINT = "";
+    public static final String ENDPOINT = "http://api.zippopotam.us/us/{zipcode}";
 
     public String getJSON(String zipcode) throws HttpClientErrorException {
-       return "";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, String> uriVariables = Map.of("zipcode", zipcode);
+
+        HttpEntity<String> entity = new HttpEntity<>("body", headers);
+
+        ResponseEntity<String> re = restTemplate.exchange(ENDPOINT, HttpMethod.GET, entity, String.class,
+                uriVariables);
+        return re.getBody();
     }
 }
