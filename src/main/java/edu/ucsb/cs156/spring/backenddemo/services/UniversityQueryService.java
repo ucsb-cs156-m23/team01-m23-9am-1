@@ -42,13 +42,9 @@ public class UniversityQueryService {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        Map<String, String> uriVariables = Map.of("name", urlEncode(name));
+        Map<String, String> uriVariables = Map.of("name", name);
         
         ResponseEntity<String> re = restTemplate.exchange(ENDPOINT, HttpMethod.GET, entity, String.class, uriVariables);
         return re.getBody();
-    }
-
-    public static String urlEncode(String str) throws UnsupportedEncodingException {
-        return URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
     }
 }
