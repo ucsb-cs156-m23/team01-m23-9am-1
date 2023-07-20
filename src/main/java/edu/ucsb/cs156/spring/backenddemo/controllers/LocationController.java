@@ -21,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name="Location info from https://nominatim.openstreetmap.org")
 @Slf4j
 @RestController
-@RequestMapping("/api/locations")
+@RequestMapping("/api/location")
 public class LocationController {
 
     ObjectMapper mapper = new ObjectMapper();
@@ -33,7 +33,7 @@ public class LocationController {
     @GetMapping("/get")
 
     public ResponseEntity<String> getLocation(
-        @Parameter(name="location", description="user location", example="goleta") @RequestParam String location
+        @Parameter(name="location", description="user location", example="Goleta") @RequestParam String location
     ) throws JsonProcessingException {
         log.info("getLocation: location={}", location);
         String result = locationQueryService.getJSON(location);
