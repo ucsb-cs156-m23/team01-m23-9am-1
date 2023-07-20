@@ -24,8 +24,8 @@ public class TidesQueryServiceTests {
     @Test
     public void test_getJSON() {
 
-        String beginDate = "07192023";
-        String endDate = "07212023";
+        String beginDate = "07/19/2023";
+        String endDate = "07/21/2023";
         String station = "9411340"; // hard coded params for test Tides Query
         String expectedURL = TidesQueryService.ENDPOINT.replace("{beginDate}", beginDate).replace("{endDate}", endDate).replace("{station}", station);
 
