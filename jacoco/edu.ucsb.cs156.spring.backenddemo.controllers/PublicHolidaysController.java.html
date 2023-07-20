@@ -2,9 +2,44 @@
 
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.ucsb.cs156.spring.backenddemo.services.PublicHolidayQueryService;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name=&quot;us holiday info from https://date.nager.at/api/v2/publicholidays/2023/us&quot;)
+<span class="fc" id="L22">@Slf4j</span>
+@RequestMapping(&quot;/api/publicholiday&quot;)
 
 @RestController
-<span class="fc" id="L7">public class PublicHolidaysController {</span>
+<span class="fc" id="L26">public class PublicHolidaysController {</span>
     
+<span class="fc" id="L28">    ObjectMapper mapper = new ObjectMapper();</span>
+
+    @Autowired
+    PublicHolidayQueryService publicHolidayQueryService;
+
+    @Operation(summary=&quot;Get public holiday info&quot;,description= &quot;Returns public holiday info via https://date.nager.at/api/v2/publicholidays/2023/us&quot;)
+    @GetMapping(&quot;/get&quot;)
+
+    public ResponseEntity&lt;String&gt; getHoliday(
+        @Parameter(name=&quot;year&quot;, description=&quot;holiday year&quot;, example=&quot;2023&quot;) @RequestParam String year,
+        @Parameter(name=&quot;countryCode&quot;, description=&quot;abbreviation of country&quot;, example=&quot;US&quot;) @RequestParam String countryCode
+    ) throws JsonProcessingException {
+<span class="fc" id="L40">        log.info(&quot;getHoliday: year={} countryCode={}&quot;, year, countryCode);</span>
+<span class="fc" id="L41">        String result = publicHolidayQueryService.getJSON(year, countryCode);</span>
+<span class="fc" id="L42">        return ResponseEntity.ok().body(result);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
