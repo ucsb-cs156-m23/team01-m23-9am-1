@@ -45,7 +45,7 @@ public class HomeController {
         List<String> team = new ArrayList<String>();
         team.add("Alec M.");
         team.add("Pablo S.");
-        team.add("Adhit S");
+        team.add("Adhit S.");
         team.add("Aasish V.");
         resultMap.put("team",team);
         resultMap.put("repo","https://github.com/ucsb-cs156-m23/team01-m23-9am-1");
